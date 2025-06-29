@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timoteo Varcetti | Замовлення дизайну</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #000000, #1a1a1a);
+        color: #ffa500;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+        min-height: 100vh;
+        animation: fadeIn 1s ease;
+      }
+      h1 {
+        font-size: 7vw;
+        text-align: center;
+        margin-bottom: 10px;
+        animation: slideDown 1s ease;
+      }
+      p {
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+        gap: 10px;
+        animation: slideUp 1s ease;
+      }
+      input,
+      select,
+      textarea,
+      button {
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        font-size: 1em;
+      }
+      button {
+        background: linear-gradient(45deg, #ffa500, #ff8c00);
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      button:hover {
+        transform: scale(1.05);
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes slideDown {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Розробка банерів, презентацій та аватарок</h1>
+    <p>Замовити у Timoteo Varcetti</p>
+    <form id="orderForm">
+      <label>Що саме треба?</label>
+      <select id="type">
+        <option value="Банер">Банер</option>
+        <option value="Аватарка">Аватарка</option>
+        <option value="Презентація">Презентація</option>
+        <option value="Інше">Інше (вкажіть нижче)</option>
+      </select>
+      <textarea
+        id="customRequest"
+        placeholder="Опишіть, що саме треба (за бажанням)"
+      ></textarea>
+      <input
+        type="text"
+        id="contact"
+        placeholder="Ваш Telegram або Discord"
+        required
+      />
+      <button type="submit">Замовити</button>
+    </form>
+
+    <p style="margin-top: 40px; text-align: center">
+      Для оплати: <strong>Номер картки</strong>: 4441 1144 3796 9098
+    </p>
+    <p style="text-align: center">Звʼязок: Telegram - @TimoteoVarcetti</p>
+
+    <script>
+      document
+        .getElementById("orderForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const type = document.getElementById("type").value;
+          const custom = document.getElementById("customRequest").value.trim();
+          const contact = document.getElementById("contact").value.trim();
+
+          const content = `📦 Нова заявка!\nТип: ${type}\nДеталі: ${
+            custom || "Не вказано"
+          }\nКонтакт: ${contact}`;
+
+          const webhookURL =
+            "https://discord.com/api/webhooks/1388859131581956096/Ru7Y03r4klNQ1i3uRnoDYJYoN9FwXWOtXmyB1oA2LD-80o-1c5lW5OMSOw4PIFdMy_nk"; // заміни на свій вебхук
+
+          await fetch(webhookURL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ content }),
+          });
+
+          alert("Дякуємо! Ваше замовлення відправлено.");
+          document.getElementById("orderForm").reset();
+        });
+    </script>
+  </body>
+</html>
